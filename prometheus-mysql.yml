@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus_task2
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana_task2
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - ./grafana:/etc/grafana/provisioning/datasources
+
+  mysql-exporter:
+    image: prom/mysqld-exporter
+    container_name: mysql_exporter_task2
+    command: 
+      - "--config.my-cnf=/cfg/.my.cnf"
+      - "--mysqld.address=host.docker.internal:3306"
+    volumes:
+      - "./.my.cnf:/cfg/.my.cnf"
+    ports:
+      - "9104:9104"
+
