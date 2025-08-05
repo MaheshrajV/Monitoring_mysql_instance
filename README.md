@@ -8,7 +8,7 @@ grafana(on container)
 
 📁 Directory Structure
 
-monitoring/
+monitoring
 ├── .my.cnf
 ├── prometheus.yml
 ├── prometheus-mysql.yml
