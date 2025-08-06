@@ -49,17 +49,41 @@ port=3306
 ```
 ##🚀 Running the Stack
 
+Step 3: Start the Monitoring Stack
+docker compose up -d
 
+Check containers:
+docker ps
+Prometheus → http://localhost:9090
 
+Grafana → http://localhost:3000
 
-📊 Access Grafana
+Default Grafana login: admin / admin
+
+📊 Step 4: Grafana Setup
+Go to Settings > Data Sources
+
+Add a new Prometheus data source:
+URL: http://prometheus:9090
+
+Import a MySQL dashboard:
+Go to Dashboard > Import
+Use Dashboard ID: 7362 or search for MySQL Overview
+
+🧪 Test Metrics
+Check mysqld_exporter metrics via:
+curl http://localhost:9104/metrics
+You should see metrics like mysql_global_status_threads_connected, etc.
+
+🧹 To Stop Everything
+docker compose down
+
+ Access Grafana
 Open your browser and navigate to:
 👉 http://localhost:3000
 
 Login:
-
 Username: admin
-
 Password: admin
 
 📌 Notes
